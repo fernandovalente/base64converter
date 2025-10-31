@@ -157,3 +157,98 @@ class Base64Converter:
         """Representação oficial do objeto."""
         return f"Base64Converter(base64_string={'...' if self._base64_string else None}, arquivo_path={self._arquivo_path})"
 
+
+def main():
+    """
+    Função principal para interface de linha de comando interativa.
+    Permite converter arquivos para base64 ou desconverter base64 para arquivos.
+    """
+    print("=" * 60)
+    print("Base64 Converter - Conversor de Arquivos para Base64")
+    print("=" * 60)
+    print()
+    
+    while True:
+        # Pergunta a operação desejada
+        print("O que você deseja fazer?")
+        print("1 - Converter arquivo para base64")
+        print("2 - Desconverter base64 para arquivo")
+        print("0 - Sair")
+        print()
+        
+        opcao = input("Digite sua opção: ").strip()
+        print()
+        
+        if opcao == "0":
+            print("Encerrando o programa...")
+            break
+        
+        elif opcao == "1":
+            # Converter arquivo para base64
+            try:
+                arquivo_path = input("Digite o caminho do arquivo a ser convertido: ").strip()
+                
+                if not arquivo_path:
+                    print("❌ Erro: Caminho do arquivo não pode estar vazio.\n")
+                    continue
+                
+                converter = Base64Converter()
+                print("\n⏳ Convertendo arquivo...")
+                base64_str = converter.converter(arquivo_path)
+                
+                print("\n✅ Conversão realizada com sucesso!")
+                print(f"📄 Arquivo: {Path(arquivo_path).name}")
+                print(f"📊 Tamanho do base64: {len(base64_str)} caracteres")
+                print("\n" + "=" * 60)
+                print("CÓDIGO BASE64:")
+                print("=" * 60)
+                print(base64_str)
+                print("=" * 60)
+                print()
+                
+            except FileNotFoundError as e:
+                print(f"❌ Erro: {e}\n")
+            except ValueError as e:
+                print(f"❌ Erro: {e}\n")
+            except Exception as e:
+                print(f"❌ Erro inesperado: {e}\n")
+        
+        elif opcao == "2":
+            # Desconverter base64 para arquivo
+            try:
+                base64_input = input("Digite o código base64: ").strip()
+                
+                if not base64_input:
+                    print("❌ Erro: Código base64 não pode estar vazio.\n")
+                    continue
+                
+                # Remove espaços e quebras de linha comuns em base64 copiado
+                base64_input = base64_input.replace(" ", "").replace("\n", "")
+                
+                arquivo_path = input("Digite o caminho onde salvar o arquivo: ").strip()
+                
+                if not arquivo_path:
+                    print("❌ Erro: Caminho de saída não pode estar vazio.\n")
+                    continue
+                
+                converter = Base64Converter(base64_string=base64_input)
+                print("\n⏳ Desconvertendo base64...")
+                arquivo_criado = converter.base64_para_arquivo(arquivo_path=arquivo_path)
+                
+                print("\n✅ Desconversão realizada com sucesso!")
+                print(f"📁 Arquivo salvo em: {arquivo_criado.absolute()}")
+                print(f"📊 Tamanho: {arquivo_criado.stat().st_size} bytes")
+                print()
+                
+            except ValueError as e:
+                print(f"❌ Erro: {e}\n")
+            except Exception as e:
+                print(f"❌ Erro inesperado: {e}\n")
+        
+        else:
+            print("❌ Opção inválida! Por favor, escolha 1, 2 ou 0.\n")
+
+
+if __name__ == "__main__":
+    main()
+
