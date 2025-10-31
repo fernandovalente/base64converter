@@ -252,8 +252,3 @@ Este é um projeto simples e direto. Sinta-se à vontade para fazer fork, melhor
 ## 📄 Licença
 
 Este projeto está disponível para uso livre.
-
-## 👨‍💻 Autor
-
-Criado como uma ferramenta utilitária para conversão base64 em Python.
-
