@@ -1,7 +1,3 @@
-"""
-Módulo para conversão entre arquivos e representação base64.
-"""
-
 import base64
 from pathlib import Path
 from typing import Union, Optional
@@ -128,8 +124,6 @@ class Base64Converter:
     
     def converter(self, arquivo_path: Union[str, Path]) -> str:
         """
-        Alias pythônico para arquivo_para_base64.
-        
         Args:
             arquivo_path: Caminho do arquivo a ser convertido
             
@@ -140,8 +134,6 @@ class Base64Converter:
     
     def desconverter(self, arquivo_path: Union[str, Path]) -> Path:
         """
-        Alias pythônico para base64_para_arquivo.
-        
         Args:
             arquivo_path: Caminho onde salvar o arquivo decodificado
             
